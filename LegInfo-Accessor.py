@@ -49,9 +49,9 @@ try:
 			else:
 				print 'Does not match any case!'
 				
-except:
+except mysql.connector.IntegrityError as err:
 	db.rollback()
-	print (error: {}".format(err))
+	print ("error: {}".format(err))
 	exit()
 	
 db.close()
