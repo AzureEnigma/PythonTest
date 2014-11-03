@@ -2,9 +2,7 @@ import mysql.connector
 import re
 import sys
 import csv
-import datetime
 
-size = 0
 ids = {}
 
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
@@ -12,8 +10,7 @@ query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rp
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	print "INSERTING naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 	if filer_id not in ids:
-		ids[size] = filer_id
-		size = size + 1
+		ids[0] = filer_id
 		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
