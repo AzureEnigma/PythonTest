@@ -20,19 +20,20 @@ try:
 			form = row[3];
 			sender_id = row[4];
 			entity_cd = row[6];
-			if(form == "F601" && entity_cd == "FRM") 
+			print form;
+			if(form == "F601" and entity_cd == "FRM") 
 				#do shit
-			else if(form == "F604" && entity_cd == "LBY") 
+			else if(form == "F604" and entity_cd == "LBY") 
 				#do shit
-			else if(form == "F604" && entity_cd == "LBY") 
+			else if(form == "F604" and entity_cd == "LBY") 
 				#do shit
-			else if(form == "F602" && entity_cd == "LEM") 
+			else if(form == "F602" and entity_cd == "LEM") 
 				#do shit
-			else if(form == "F603" && entity_cd == "LEM") 
+			else if(form == "F603" and entity_cd == "LEM") 
 				#do shit
 			else if(form == "F606") 
 				#ignore
-			else if(form == "F607" && entity_cd == "LEM") 
+			else if(form == "F607" and entity_cd == "LEM") 
 				#ignore
 				
 except:
