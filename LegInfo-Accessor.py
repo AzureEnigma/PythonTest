@@ -4,6 +4,9 @@ import sys
 import csv
 import datetime
 
+size = 0
+ids = {}
+
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
@@ -13,8 +16,6 @@ def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_e
 		size = size + 1
 		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
 
-size = 0
-ids = {}
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
 
