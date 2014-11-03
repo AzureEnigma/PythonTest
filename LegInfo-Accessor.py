@@ -3,7 +3,7 @@ import re
 import sys
 import csv
 
-query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES (%s, %s, %s, %d, %d)'
+query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %d, %d)'
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
