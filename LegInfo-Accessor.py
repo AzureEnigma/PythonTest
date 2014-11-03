@@ -21,19 +21,19 @@ try:
 			sender_id = row[4];
 			entity_cd = row[6];
 			print form;
-			if(form == "F601" and entity_cd == "FRM"): 
+			if form == "F601" and entity_cd == "FRM": 
 				#do shit
-			elif(form == "F604" and entity_cd == "LBY"):
+			elif form == "F604" and entity_cd == "LBY":
 				#do shit
-			elif(form == "F604" and entity_cd == "LBY"):
+			elif form == "F604" and entity_cd == "LBY":
 				#do shit
-			elif(form == "F602" and entity_cd == "LEM"):
+			elif form == "F602" and entity_cd == "LEM":
 				#do shit
-			elif(form == "F603" and entity_cd == "LEM"):
+			elif form == "F603" and entity_cd == "LEM":
 				#do shit
-			elif(form == "F606"):
+			elif form == "F606":
 				#ignore
-			elif(form == "F607" and entity_cd == "LEM"):
+			elif form == "F607" and entity_cd == "LEM":
 				#ignore
 				
 except:
