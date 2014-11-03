@@ -2,8 +2,9 @@ import mysql.connector
 import re
 import sys
 import csv
+from dateutil.parser import parse
 
-query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %d, %d)'
+query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %d, %d);'
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
@@ -29,6 +30,7 @@ try:
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
+				parse(rpt_date).strftime("%Y-%m-%d %H:%M:%S")
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
