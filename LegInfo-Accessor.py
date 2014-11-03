@@ -28,7 +28,6 @@ try:
 			print form
 			if form == "F601" and entity_cd == "FRM": 
 				filer_naml = row[7]
-				filer_naml = filer_naml.translate(None, ',')
 				filer_id = row[5]
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
@@ -52,7 +51,7 @@ try:
 				
 except:
 	db.rollback()
-	print 'error!', sys.exc_info()[0]
+	print (error: {}".format(err))
 	exit()
 	
 db.close()
