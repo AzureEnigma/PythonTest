@@ -11,7 +11,6 @@ query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rp
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	print "INSERTING naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 	if filer_id not in ids:
-		ids.append(filer_id)
 		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
@@ -37,6 +36,7 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
+				ids.append(filer_id)
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbying_firm(dd, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY":
