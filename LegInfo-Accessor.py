@@ -18,11 +18,16 @@ try:
 
 		for row in tsvin:
 			form = row[3];
-			sender_id = row[4];
-			entity_cd = row[6];
+			sender_id = row[4]
+			entity_cd = row[6]
 			print form;
 			if form == "F601" and entity_cd == "FRM": 
-				print 'case 1'
+				filer_naml = row[8]
+				filer_id = row[5]
+				rpt_date = row[12]
+				ls_beg_yr = int(row[13])
+				ls_end_yr = int(row[14])
+				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY":
 				print 'case 2'
 			elif form == "F604" and entity_cd == "LBY":
@@ -35,6 +40,8 @@ try:
 				print 'case 6'
 			elif form == "F607" and entity_cd == "LEM":
 				print 'case 7'
+			else:
+				print 'Does not match any case!'
 				
 except:
 	conn.rollback()
