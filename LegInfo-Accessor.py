@@ -32,6 +32,8 @@ try:
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
+				if not ls_beg_yr:
+					ls_beg_yr = int(ls_beg_yr)
 			elif form == "F604" and entity_cd == "LBY":
 				print 'case 2'
 			elif form == "F604" and entity_cd == "LBY":
