@@ -22,19 +22,19 @@ try:
 			entity_cd = row[6];
 			print form;
 			if form == "F601" and entity_cd == "FRM": 
-				#do shit
+				print 'case 1'
 			elif form == "F604" and entity_cd == "LBY":
-				#do shit
+				print 'case 2'
 			elif form == "F604" and entity_cd == "LBY":
-				#do shit
+				print 'case 3'
 			elif form == "F602" and entity_cd == "LEM":
-				#do shit
+				print 'case 4'
 			elif form == "F603" and entity_cd == "LEM":
-				#do shit
+				print 'case 5'
 			elif form == "F606":
-				#ignore
+				print 'case 6'
 			elif form == "F607" and entity_cd == "LEM":
-				#ignore
+				print 'case 7'
 				
 except:
 	conn.rollback()
