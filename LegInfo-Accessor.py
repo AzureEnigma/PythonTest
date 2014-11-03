@@ -15,12 +15,16 @@ try:
 
 	with open('CVR_REGISTRATION_CD.TSV', 'rb') as tsvin:
 		tsvin = csv.reader(tsvin, delimiter='\t')
+		
+		val = 0;
 
 		for row in tsvin:
 			form = row[3];
 			sender_id = row[4]
 			entity_cd = row[6]
-			print form;
+			print val
+			val++
+			print form
 			if form == "F601" and entity_cd == "FRM": 
 				filer_naml = row[7]
 				filer_id = row[5]
