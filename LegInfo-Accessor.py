@@ -4,11 +4,7 @@ import sys
 import csv
 import datetime
 
-query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %d, %d);'
-
-#def convert_date(initial):
-#	temp = datetime.datetime.strptime(initial, "%m/$d/%Y %H:%M:%S")
-#	return temp.strftime('%Y-%m-%d %H:%M:%S')
+query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES('%s', '%s', '%s', %d, %d);'
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
