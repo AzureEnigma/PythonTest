@@ -7,6 +7,7 @@ import datetime
 query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);'
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
+	print "INSERTING naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
@@ -49,9 +50,9 @@ try:
 			else:
 				print 'Does not match any case!'
 				
-except mysql.connector.IntegrityError as err:
+except:
 	db.rollback()
-	print ("error: {}".format(err))
+	print 'error!', sys.exc_info()[0]
 	exit()
 	
 db.close()
