@@ -6,14 +6,8 @@ import csv
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
-	ids = {}
-	size = 0
 	cursor.execute("SELECT filer_id FROM LobbyingFirm")
-	for (filer_id) in cursor:
-		id[size] = filer_id
-		size += 1
-	if filer_id not in ids:
-		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
+	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
@@ -54,6 +48,9 @@ try:
 				print 'case 7'
 			else:
 				print 'Does not match any case!'
+				
+except mysql.connector.errors.IntegrityError:
+	pass
 				
 except:
 	db.rollback()
