@@ -4,7 +4,7 @@ import sys
 import csv
 import datetime
 
-query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s)'
+query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);'
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
@@ -28,6 +28,7 @@ try:
 			print form
 			if form == "F601" and entity_cd == "FRM": 
 				filer_naml = row[7]
+				filer_naml = filer_naml.translate(None, ',')
 				filer_id = row[5]
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
