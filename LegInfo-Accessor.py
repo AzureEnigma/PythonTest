@@ -3,15 +3,11 @@ import re
 import sys
 import csv
 
-ids = {}
-size = 0
-
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute("SELECT * FROM LobbyingFirm WHERE filer_id = %s", (filer_id))
-	if(cursor.rowcount() < 1):
-		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
+	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, int(ls_beg_yr), int(ls_end_yr)))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
