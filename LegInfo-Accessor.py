@@ -6,9 +6,9 @@ import datetime
 
 query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %d, %d);'
 
-def convert_date(initial):
-	temp = datetime.datetime.strptime(initial, "%m/$d/%Y %H:%M:%S")
-	return temp.strftime('%Y-%m-%d %H:%M:%S')
+#def convert_date(initial):
+#	temp = datetime.datetime.strptime(initial, "%m/$d/%Y %H:%M:%S")
+#	return temp.strftime('%Y-%m-%d %H:%M:%S')
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
@@ -34,7 +34,7 @@ try:
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
-				convert_date(rpt_date)
+				rpt_date = '12-08-2005 10:00:00'
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
