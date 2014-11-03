@@ -23,7 +23,7 @@ try:
 			sender_id = row[4]
 			entity_cd = row[6]
 			print val
-			val++
+			val = val + 1
 			print form
 			if form == "F601" and entity_cd == "FRM": 
 				filer_naml = row[7]
