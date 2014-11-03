@@ -8,7 +8,7 @@ query_insert_lobbying_firm = 'INSERT INTO LobbyingFirm(filer_naml, filer_id, rpt
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
 
-db = mysql.connector.connect('localhost', '', '', 'tester')
+db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
 
 try:
