@@ -21,7 +21,7 @@ try:
 			sender_id = row[4];
 			entity_cd = row[6];
 			if(form == "F601" && entity_cd == "FRM") 
-				filer_naml = row[
+				#do shit
 			else if(form == "F604" && entity_cd == "LBY") 
 				#do shit
 			else if(form == "F604" && entity_cd == "LBY") 
