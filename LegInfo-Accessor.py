@@ -54,7 +54,7 @@ try:
 				print 'case 7'
 			else:
 				print 'Does not match any case!'
-				
+		db.commit()		
 except:
 	db.rollback()
 	print 'error!', sys.exc_info()[0]
