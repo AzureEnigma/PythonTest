@@ -37,8 +37,9 @@ try:
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
-				rpt_date = re.split(' ', rpt_date)[0]
 				if rpt_date:
+					rpt_date = re.split(' ', rpt_date)[0]
+					print rpt_date
 					rpt_date = format_date(rpt_date)
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
