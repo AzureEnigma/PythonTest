@@ -2,8 +2,13 @@ import mysql.connector
 import re
 import sys
 import csv
+import datetime
 
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
+
+def format_date(str):
+	date = datetime.datetime.strptime(str, "%m/%d/%Y %H:%M:%S").date()
+	return date.strftime("%Y-%d-%m %H:%M:%S")
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(filer_id)s"
@@ -32,7 +37,6 @@ try:
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
-				rpt_date = re.sub('/', '-', rpt_date);
 				rpt_date = rpt_date[:-3]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
