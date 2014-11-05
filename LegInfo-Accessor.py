@@ -8,6 +8,7 @@ query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rp
 
 def format_date(str):
 	date = datetime.datetime.strptime(str, "%m/%d/%Y").date()
+	print "here"
 	return date.strftime("%Y-%d-%m")
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
