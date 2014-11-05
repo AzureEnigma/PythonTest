@@ -7,9 +7,9 @@ import datetime
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
 def format_date(str):
-	date = datetime.datetime.strptime(str, "%m/%d/%Y").date()
-	print "here"
-	return date.strftime("%Y-%d-%m")
+	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
+	if datetime.date.mydate.year < 2000:
+		return mydate.strftime("%Y-%d-%m")
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(filer_id)s"
