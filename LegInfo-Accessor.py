@@ -50,7 +50,7 @@ def insert_lobbyist_direct_employment(cursor, pid, sender_id, rpt_date, ls_beg_y
 		cursor.execute(query_insert_lobbyist_direct_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
-	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
+	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_employer, (filer_naml, filer_id, coalition))
