@@ -23,8 +23,11 @@ def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_e
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
-def insert_lobbyist(cursor, val, filer_id):
+def insert_lobbyist(cursor, val, filer_id, filer_naml, filernamf):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
+	select_pid = "SELECT pid FROM Person WHERE filer_naml = %(filer_naml)s AND filer_namf = %(filer_namf);"
+	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
+	print cursor.fetchone()
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist, (val, filer_id))
@@ -89,7 +92,7 @@ try:
 				ls_end_yr = row[14]
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-				insert_lobbyist(dd, val, filer_id)
+				insert_lobbyist(dd, val, filer_id, filer_naml, filer_namf)
 				print 'inserted lobbyist'
 				insert_lobbyist_employment(dd, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY":
