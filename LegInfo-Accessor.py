@@ -56,6 +56,7 @@ def insert_lobbying_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
+dd2 = db.cursor(buffered = True)
 
 try:
 
@@ -89,7 +90,7 @@ try:
 				ls_end_yr = row[14]
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-				#insert_lobbyist(dd, filer_id)
+				insert_lobbyist(dd2, filer_id)
 				print 'inserted lobbyist'
 				insert_lobbyist_employment(dd, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY":
