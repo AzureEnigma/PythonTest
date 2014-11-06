@@ -115,7 +115,7 @@ try:
 				ls_end_yr = row[14]
 				print filer_id
 				coalition = (filer_id[:1] == 'C')
-				print "filer_naml = {0}, filer_id = {1}, 
+				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
 				insert_lobbyist_contracts(dd, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F606":
