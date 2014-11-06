@@ -7,15 +7,21 @@ import datetime
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist = "INSERT INTO Lobbyist (pid, filer_id) VALUES(%s, %s);"
 query_insert_lobbyist_employer = "INSERT INTO LobbyistEmployer (filer_naml, filer_id, coalition) VALUES(%s, %s, %s);"
-query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s);"
-query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s);"
-query_insert_lobbying_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
+query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
+query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
+query_insert_lobbying_contracts = "INSERT INTO LobbyingContracts (pid, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s, %s);"
 
 
 def format_date(str):
 	check = str.split('/');
 	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
 	return mydate.strftime("%Y-%d-%m")
+	
+def getPerson(filer_naml, filer_namf):
+	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
+	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
+	pid = cursor.fetchone()[0]
+	return pid
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(filer_id)s"
@@ -23,23 +29,19 @@ def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_e
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbying_firm, (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
-def insert_lobbyist(cursor, val, filer_id, filer_naml, filernamf):
+def insert_lobbyist(cursor, pid, filer_id):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
-	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
-	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
-	pid = cursor.fetchone()[0]
-	print pid
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist, (val, filer_id))
 
-def insert_lobbyist_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
+def insert_lobbyist_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
-		cursor.execute(query_insert_lobbyist_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
+		cursor.execute(query_insert_lobbyist_employment, (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
-def insert_lobbyist_direct_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
+def insert_lobbyist_direct_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingDirectEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
@@ -51,7 +53,7 @@ def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_employer, (fielr_naml, filer_id, coalition))
 		
-def insert_lobbying_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
+def insert_lobbying_contracts(cursor, pid, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id, sender_id, rpt_date FROM LobbyistContracts WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
@@ -91,11 +93,12 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
+				pid = getPerson(filer_naml, filer_namf)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-				insert_lobbyist(dd, val, filer_id, filer_naml, filer_namf)
+				insert_lobbyist(dd, pid, filer_id)
 				print 'inserted lobbyist'
-				insert_lobbyist_employment(dd, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
+				insert_lobbyist_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY":
 				filer_naml = row[7]
 				filer_namf = row[8]
@@ -104,15 +107,17 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
+				pid = getPerson(filer_naml, filer_namf)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-				insert_lobbyist(dd, filer_id)
-				insert_lobbyist_direct_employment(dd, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
+				insert_lobbyist(dd, pid, filer_id)
+				insert_lobbyist_direct_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			#extra attention needed for this one
 			elif form == "F602" and entity_cd == "LEM":
 				print 'case 4'
 			elif form == "F603" and entity_cd == "LEM":
 				filer_naml = row[7]
+				filer_namf = row[8]
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
@@ -122,7 +127,7 @@ try:
 				coalition = (filer_id[:1] == 'C')
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
-				insert_lobbyist_contracts(dd, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
+				insert_lobbyist_contracts(dd, val, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F606":
 				print 'case 6'
 			elif form == "F607" and entity_cd == "LEM":
