@@ -37,14 +37,14 @@ def insert_lobbyist(cursor, pid, filer_id):
 
 def insert_lobbyist_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	print 'in'
-	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingEmployment WHERE sender_id = %(sender_id)s"
+	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyistEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
 		print 'lol'
 		cursor.execute(query_insert_lobbyist_employment, (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_direct_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
-	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingDirectEmployment WHERE sender_id = %(sender_id)s"
+	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyistDirectEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_direct_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
