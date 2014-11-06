@@ -27,8 +27,7 @@ def insert_lobbyist(cursor, filer_id):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
-		print 'lol'
-		cursor.execute(query_insert_lobbyist, (filer_id))
+		cursor.execute(query_insert_lobbyist, filer_id)
 
 def insert_lobbyist_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingEmployment WHERE sender_id = %(sender_id)s"
