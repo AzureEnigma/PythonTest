@@ -5,7 +5,7 @@ import csv
 import datetime
 
 query_insert_lobbying_firm = "INSERT INTO LobbyingFirm (filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
-query_insert_lobbyist = "INSERT INTO Lobbyist (filer_id) VALUES (%s);"
+query_insert_lobbyist = "INSERT INTO Lobbyist (filer_id) VALUES (?);"
 query_insert_lobbyist_employer = "INSERT INTO LobbyistEmployer (filer_naml, filer_id, coalition) VALUES (%s, %s, %s);"
 query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES (%s, %s, %s, %s);"
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES (%s, %s, %s, %s);"
@@ -27,7 +27,7 @@ def insert_lobbyist(cursor, filer_id):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
-		cursor.execute(query_insert_lobbyist, filer_id)
+		cursor.execute(query_insert_lobbyist, (filer_id))
 
 def insert_lobbyist_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingEmployment WHERE sender_id = %(sender_id)s"
