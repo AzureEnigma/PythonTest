@@ -25,7 +25,7 @@ def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_e
 		
 def insert_lobbyist(cursor, val, filer_id, filer_naml, filernamf):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
-	select_pid = "SELECT pid FROM Person WHERE filer_naml = %(filer_naml)s AND filer_namf = %(filer_namf);"
+	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf);"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	print cursor.fetchone()
 	cursor.execute(select_stmt, {'filer_id':filer_id})
