@@ -25,35 +25,33 @@ def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_e
 		
 def insert_lobbyist(cursor, filer_id):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
-	print 'where'
 	cursor.execute(select_stmt, {'filer_id':filer_id})
-	print 'hi'
-	if(cursor.rowcount() == 0):
+	if(cursor.rowcount == 0):
 		print 'lol'
 		cursor.execute(query_insert_lobbyist, (filer_id))
 
 def insert_lobbyist_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
-	if(cursor.rowcount() == 0):
+	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_direct_employment(cursor, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyingDirectEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
-	if(cursor.rowcount() == 0):
+	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_direct_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 	select_stmt = "SELECT filer_id FROM Lobbyist WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
-	if(cursor.rowcount() == 0):
+	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_employer, (fielr_naml, filer_id, coalition))
 		
 def insert_lobbying_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id, sender_id, rpt_date FROM LobbyistContracts WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
-	if(cursor.rowcount() == 0):
+	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_contracts, (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 				
 
