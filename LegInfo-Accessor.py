@@ -73,7 +73,7 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 		cursor.execute(query_insert_lobbyist_contracts, (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 				
 
-db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
+db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
 dd = db.cursor(buffered = True)
 
 try:
