@@ -84,7 +84,7 @@ try:
 			print val
 			print form
 			print entity_cd
-			if form == "F601" and entity_cd == "FRM": 
+			if form == "F601" and entity_cd == "FRM" and sender_id[:1] == 'F': 
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
@@ -92,7 +92,7 @@ try:
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbying_firm(dd, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
-			elif form == "F604" and entity_cd == "LBY":
+			elif form == "F604" and entity_cd == "LBY" and sender_id[:1] == 'C':
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
@@ -106,7 +106,7 @@ try:
 				insert_lobbyist(dd, pid, filer_id)
 				print 'inserted lobbyist'
 				insert_lobbyist_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-			elif form == "F604" and entity_cd == "LBY":
+			elif form == "F604" and entity_cd == "LBY" and sender_id.isdigit():
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
