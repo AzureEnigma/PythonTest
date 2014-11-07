@@ -143,7 +143,7 @@ try:
 		db.commit()		
 except:
 	db.rollback()
-	print 'error!', sys.exc_info()[0]
+	print 'error!', sys.exc_info()[0], sys.exc_info()[1]
 	exit()
 	
 db.close()
