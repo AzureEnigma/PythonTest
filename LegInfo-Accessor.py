@@ -19,7 +19,7 @@ def format_date(str):
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
 	pid = val
-	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
+	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s ORDER BY Person.pid;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	if cursor.rowcount > 0:
 		pid = cursor.fetchone()[0]
@@ -100,7 +100,7 @@ try:
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbying_firm(dd, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
-			elif form == "F604" and entity_cd == "LBY" and sender_id[:1] == 'C':
+			elif form == "F604" and entity_cd == "LBY" and sender_id[:1] == 'F':
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
@@ -115,7 +115,7 @@ try:
 				insert_lobbyist(dd, pid, filer_id)
 				print 'inserted lobbyist'
 				insert_lobbyist_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
-			elif form == "F604" and entity_cd == "LBY" and sender_id.isdigit():
+			elif form == "F604" and entity_cd == "LBY" and sender_id[:1] == 'E':
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
@@ -128,12 +128,23 @@ try:
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
-				print 'done'
+				print 'inserted lobbyist'
 				insert_lobbyist_direct_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			#extra attention needed for this one
-			elif form == "F602" and entity_cd == "LEM":
+			elif form == "F604" and entity_cd == "LBY" and sender_id.isdigit():
 				print 'case 4'
-			elif form == "F603" and entity_cd == "LEM":
+				filer_naml = row[7]
+				filer_namf = row[8]
+				filer_id = row[5]
+				sender_id = row[4]
+				rpt_date = row[12]
+				ls_beg_yr = row[13]
+				ls_end_yr = row[14]
+				firm_name = row[61]
+				print "filer_id = {0}\n".format(filer_id)
+				pid = getPerson(dd, filer_naml, filer_namf, val)
+				insert_lobbyist(dd, pid, filer_id)
+			elif form == "F602" and entity_cd == "LEM":
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
@@ -146,6 +157,18 @@ try:
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
 				insert_lobbyist_contracts(dd, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
+			elif form == "F603" and entity_cd == "LEM":
+				ind_cb = row[39]
+				bus_cb = row[40]
+				trade_cb = row[41]
+				oth_cb = row[42]
+				filer_naml = row[7]
+				filer_namf = row[8]
+				filer_id = row[5]
+				rpt_date = row[12]
+				ls_beg_yr = row[13]
+				ls_end_yr = row[14]
+				
 			elif form == "F606":
 				print 'case 6'
 			elif form == "F607" and entity_cd == "LEM":
