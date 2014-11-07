@@ -84,6 +84,7 @@ try:
 			print val
 			print form
 			print entity_cd
+			print sender_id
 			if form == "F601" and entity_cd == "FRM" and sender_id[:1] == 'F': 
 				filer_naml = row[7]
 				filer_id = row[5]
