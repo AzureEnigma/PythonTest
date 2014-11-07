@@ -83,6 +83,7 @@ try:
 			val = val + 1
 			print val
 			print form
+			print entity_cd
 			if form == "F601" and entity_cd == "FRM": 
 				filer_naml = row[7]
 				filer_id = row[5]
