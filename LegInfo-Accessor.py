@@ -57,7 +57,7 @@ def insert_lobbyist_direct_employment(cursor, pid, sender_id, rpt_date, ls_beg_y
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyistDirectEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
-		cursor.execute(query_insert_lobbyist_direct_employment, (sender_id, rpt_date, ls_beg_yr, ls_end_yr))
+		cursor.execute(query_insert_lobbyist_direct_employment, (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id, sender_id, rpt_date FROM LobbyingContracts WHERE filer_id = %(filer_id)s"
@@ -120,6 +120,7 @@ try:
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
+				print 'done'
 				insert_lobbyist_direct_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			#extra attention needed for this one
 			elif form == "F602" and entity_cd == "LEM":
