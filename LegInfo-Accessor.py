@@ -53,7 +53,10 @@ def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
-		print query_insert_lobbyist_employer.format(filer_naml, filer_id, coalition)
+		print query_insert_lobbyist_employer
+		print filer_naml
+		print filer_id
+		print coalition
 		cursor.execute(query_insert_lobbyist_employer, (filer_naml, filer_id, coalition))
 		
 def insert_lobbying_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
