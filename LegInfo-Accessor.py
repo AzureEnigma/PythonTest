@@ -18,6 +18,7 @@ def format_date(str):
 	return mydate.strftime("%Y-%d-%m")
 	
 def getPerson(cursor, filer_naml, filer_namf):
+	pid = 0
 	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	if cursor.rowcount > 0:
