@@ -17,7 +17,7 @@ def format_date(str):
 	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
 	return mydate.strftime("%Y-%d-%m")
 	
-def getPerson(cursor, filer_naml, filer_namf):
+def getPerson(cursor, filer_naml, filer_namf, val):
 	pid = 0
 	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
@@ -104,7 +104,7 @@ try:
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'lol'
-				pid = getPerson(dd, filer_naml, filer_namf)
+				pid = getPerson(dd, filer_naml, filer_namf, val)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
@@ -119,7 +119,7 @@ try:
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'hi'
-				pid = getPerson(dd, filer_naml, filer_namf)
+				pid = getPerson(dd, filer_naml, filer_namf, val)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
