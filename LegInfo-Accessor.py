@@ -21,10 +21,8 @@ def getPerson(cursor, filer_naml, filer_namf):
 	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	pid = cursor.fetchone()[0]
-	if pid:
-		return pid
-	else
-		return 0
+	print pid
+	return pid
 	
 def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 	print 'in'
