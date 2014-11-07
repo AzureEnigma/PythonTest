@@ -113,6 +113,7 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
+				print 'hi'
 				pid = getPerson(dd, filer_naml, filer_namf)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
