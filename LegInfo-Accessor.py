@@ -126,7 +126,9 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
+				print 'hi'
 				pid = getPerson(dd, filer_naml, filer_namf)
+				print 'hi'
 				coalition = (filer_id[:1] == 'C')
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
