@@ -9,7 +9,7 @@ query_insert_lobbyist = "INSERT INTO Lobbyist (pid, filer_id) VALUES(%s, %s);"
 query_insert_lobbyist_employer = "INSERT INTO LobbyistEmployer (filer_naml, filer_id, coalition) VALUES(%s, %s, %s);"
 query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
-query_insert_lobbying_contracts = "INSERT INTO LobbyingContracts (pid, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s, %s);"
+query_insert_lobbying_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
 
 def format_date(str):
@@ -56,7 +56,7 @@ def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 		print 'lol'
 		cursor.execute(query_insert_lobbyist_employer, (filer_naml, filer_id, coalition))
 		
-def insert_lobbying_contracts(cursor, pid, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
+def insert_lobbying_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
 	select_stmt = "SELECT filer_id, sender_id, rpt_date FROM LobbyistContracts WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
@@ -127,12 +127,10 @@ try:
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'hi'
-				pid = getPerson(dd, filer_naml, filer_namf)
-				print 'hi'
 				coalition = (filer_id[:1] == 'C')
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
-				insert_lobbyist_contracts(dd, pid, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
+				insert_lobbyist_contracts(dd, filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F606":
 				print 'case 6'
 			elif form == "F607" and entity_cd == "LEM":
