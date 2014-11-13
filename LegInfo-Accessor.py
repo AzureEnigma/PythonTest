@@ -16,16 +16,17 @@ Lobbyist = [[0 for x in xrange(5)] for x in xrange(10000)]
 def format_date(str):
 	temp = ''
 	str = str.split('/');
-	for x in range(0,3):
-		print str[x]
-		if str[x][:1] == '0':
-			str[x] = str[x][1:]
-			print str[x]
-	temp = '/'.join(str)
+	#for x in range(0,3):
+	#	print str[x]
+	#	if str[x][:1] == '0':
+	#		str[x] = str[x][1:]
+	#		print str[x]
+	temp = '/'.join([str[2], str[1], str[0]])
 	print temp
-	mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
-	print mydate.strftime("%Y-%d-%m")
-	return mydate.strftime("%Y-%d-%m")
+	#mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
+	#print mydate.strftime("%Y-%d-%m")
+	#return mydate.strftime("%Y-%d-%m")
+	return temp
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
 	pid = val
