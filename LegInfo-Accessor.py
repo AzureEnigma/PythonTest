@@ -11,9 +11,12 @@ query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
+Lobbyist = [[]]
 
 def format_date(str):
 	check = str.split('/');
+	for len(check):
+		
 	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
 	return mydate.strftime("%Y-%d-%m")
 	
@@ -71,9 +74,19 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_contracts, (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
+		
+def find_lobbyist_employment(cursor, index):
+	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(sender_id)s"
+	cursor.execute(select_stmt, {'sender_id'::Lobbyist[index][1]})
+	if(cursor.rowcount > 0):
+		cursor.execute(query_insert_lobbyist_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
+	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
+	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
+	if(cursor.rowcount > 0):
+		cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 				
 
-db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
+db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
 
 try:
@@ -82,6 +95,7 @@ try:
 		tsvin = csv.reader(tsvin, delimiter='\t')
 		
 		val = 0
+		index = 0
 
 		for row in tsvin:
 			form = row[3]
@@ -144,6 +158,12 @@ try:
 				print "filer_id = {0}\n".format(filer_id)
 				pid = getPerson(dd, filer_naml, filer_namf, val)
 				insert_lobbyist(dd, pid, filer_id)
+				Lobbyist[index][0] = pid
+				Lobbyist[index][1] = sender_id
+				Lobbyist[index][2] = rpt_date
+				Lobbyist[index][3] = ls_beg_yr
+				Lobbyist[index][4] = ls_end_yr
+				index += 1
 			elif form == "F602" and entity_cd == "LEM":
 				filer_naml = row[7]
 				filer_namf = row[8]
@@ -168,13 +188,26 @@ try:
 				rpt_date = row[12]
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
-				
+				coalition = (filer_id[:1] == 'C') * 1
+				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
+				if(ind_cd == 'X'):
+					insert_lobbyist_employer(dd, filer_naml + filer_namf, filer_id, coalition)
+				else:
+					insert_lobbyist_employer(dd, filer_naml, filer_id,  coalition)
 			elif form == "F606":
-				print 'case 6'
-			elif form == "F607" and entity_cd == "LEM":
 				print 'case 7'
+				print 'Dont worry about now'
+			elif form == "F607" and entity_cd == "LEM":
+				print 'case 8'
+				print 'Dont worry about now'
 			else:
 				print 'Does not match any case!'
+				
+		while index:
+			print "checking lobbyist {0}\n".format(index)
+			find_lobbyist_employment(dd, index)
+			index -= 1
+			
 		db.commit()		
 except:
 	db.rollback()
