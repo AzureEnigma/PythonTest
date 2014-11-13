@@ -133,6 +133,11 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
+				print rpt_date
+				rpt_date = rpt_date.split(' ')[0]
+				print rpt_date
+				rpt_date = format_date(rpt_date)
+				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'lol'
@@ -148,6 +153,11 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
+				print rpt_date
+				rpt_date = rpt_date.split(' ')[0]
+				print rpt_date
+				rpt_date = format_date(rpt_date)
+				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'hi'
@@ -165,6 +175,11 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
+				print rpt_date
+				rpt_date = rpt_date.split(' ')[0]
+				print rpt_date
+				rpt_date = format_date(rpt_date)
+				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				firm_name = row[61]
@@ -184,6 +199,11 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
+				print rpt_date
+				rpt_date = rpt_date.split(' ')[0]
+				print rpt_date
+				rpt_date = format_date(rpt_date)
+				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print 'hi'
@@ -200,6 +220,11 @@ try:
 				filer_namf = row[8]
 				filer_id = row[5]
 				rpt_date = row[12]
+				print rpt_date
+				rpt_date = rpt_date.split(' ')[0]
+				print rpt_date
+				rpt_date = format_date(rpt_date)
+				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				coalition = (filer_id[:1] == 'C') * 1
@@ -217,10 +242,10 @@ try:
 			else:
 				print 'Does not match any case!'
 				
-		#while index:
-		#	index -= 1
-		#	print "checking lobbyist {0}\n".format(index)
-		#	find_lobbyist_employment(dd, index)
+		while index:
+			index -= 1
+			print "checking lobbyist {0}\n".format(index)
+			find_lobbyist_employment(dd, index)
 			
 		db.commit()		
 except:
