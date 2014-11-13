@@ -11,7 +11,7 @@ query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
-Lobbyist = [[]]
+Lobbyist = [[0 for x in xrange 5] for x in xrange 1000]
 
 def format_date(str):
 	check = str.split('/');
@@ -188,7 +188,7 @@ try:
 				ls_end_yr = row[14]
 				coalition = (filer_id[:1] == 'C') * 1
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
-				if(ind_cd == 'X'):
+				if(ind_cb == 'X'):
 					insert_lobbyist_employer(dd, filer_naml + filer_namf, filer_id, coalition)
 				else:
 					insert_lobbyist_employer(dd, filer_naml, filer_id,  coalition)
@@ -202,9 +202,9 @@ try:
 				print 'Does not match any case!'
 				
 		while index:
+			index -= 1
 			print "checking lobbyist {0}\n".format(index)
 			find_lobbyist_employment(dd, index)
-			index -= 1
 			
 		db.commit()		
 except:
