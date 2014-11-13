@@ -78,12 +78,18 @@ def find_lobbyist_employment(cursor, index):
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
 		print 'lobbyistEmployment'
-		cursor.execute(query_insert_lobbyist_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
+		select_stmt = "SELECT * FROM LobbyistEmployment WHERE pid = %(pid)s AND sender_id = %(sender_id)s AND rpt_date = %(rpt_date)s AND ls_end_yr = %(ls_end_yr)s"
+		cursor.execute(select_stmt, {'pid':Lobbyist[index][0], 'sender_id':Lobbyist[index][1], 'rpt_date':Lobbyist[index][2], 'ls_end_yr':Lobbyist[index][4]})
+		if(cursor.rowcount == 0):
+			cursor.execute(query_insert_lobbyist_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
 		print 'lobbyistDirectEmployment'
-		cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
+		select_stmt = "SELECT * FROM LobbyistDirectEmployment WHERE pid = %(pid)s AND sender_id = %(sender_id)s AND rpt_date = %(rpt_date)s AND ls_end_yr = %(ls_end_yr)s"
+		cursor.execute(select_stmt, {'pid':Lobbyist[index][0], 'sender_id':Lobbyist[index][1], 'rpt_date':Lobbyist[index][2], 'ls_end_yr':Lobbyist[index][4]})
+		if(cursor.rowcount == 0):
+			cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 				
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
