@@ -25,6 +25,7 @@ def format_date(str):
 		print temp
 	print temp
 	mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
+	print mydate.strftime("%Y-%d-%m")
 	return mydate.strftime("%Y-%d-%m")
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
