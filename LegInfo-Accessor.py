@@ -11,7 +11,7 @@ query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
-Lobbyist = [[0 for x in xrange 5] for x in xrange 1000]
+Lobbyist = [[0 for x in xrange(5)] for x in xrange(1000)]
 
 def format_date(str):
 	check = str.split('/');
