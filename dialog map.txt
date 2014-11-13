@@ -1,0 +1,22 @@
+How do we connect the IPhone to the database in the easiest way possible?
+
+Directly connect to the salesforce database to get the data
+
++ Faster, sends data directly, gets it back directly
+- Have to use the mobile Salesforce SDK
+- The phone and the admin console both need a way to connect
+- Since the admin console is web based and the phone is mobile, they both may
+need a different format for the data
+- The admin console and the phone may ask for data at the same time
+
+Use the web console to get the data
+
++ Dont need to have multiple ways of sending requests and recieving data
++ Only need to work with one version of salesforce SDK
+- Have to got through the web console to get it, slower getting data
+- The web console has to be active during the auction
+
+Dont use Salesforce Database
+
+- Cant use this. Working with Salesforce database is a requirement.
+- Also if not used, we would need our own database

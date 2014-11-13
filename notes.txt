@@ -1,0 +1,5 @@
+Notes for meeting:
+
+For the leginfo:
+In leginfo_migrate.py -> change digitaldemocracy to DDDB
+

@@ -71,13 +71,9 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 		cursor.execute(query_insert_lobbyist_contracts, (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def find_lobbyist_employment(cursor, index):
-	print Lobbyist[index][0]
-	print Lobbyist[index][1]
-	print Lobbyist[index][2]
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
-		print 'lobbyistEmployment'
 		select_stmt = "SELECT * FROM LobbyistEmployment WHERE pid = %(pid)s AND sender_id = %(sender_id)s AND rpt_date = %(rpt_date)s AND ls_end_yr = %(ls_end_yr)s"
 		cursor.execute(select_stmt, {'pid':Lobbyist[index][0], 'sender_id':Lobbyist[index][1], 'rpt_date':Lobbyist[index][2], 'ls_end_yr':Lobbyist[index][4]})
 		if(cursor.rowcount == 0):
@@ -85,14 +81,13 @@ def find_lobbyist_employment(cursor, index):
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
-		print 'lobbyistDirectEmployment'
 		select_stmt = "SELECT * FROM LobbyistDirectEmployment WHERE pid = %(pid)s AND sender_id = %(sender_id)s AND rpt_date = %(rpt_date)s AND ls_end_yr = %(ls_end_yr)s"
 		cursor.execute(select_stmt, {'pid':Lobbyist[index][0], 'sender_id':Lobbyist[index][1], 'rpt_date':Lobbyist[index][2], 'ls_end_yr':Lobbyist[index][4]})
 		if(cursor.rowcount == 0):
 			cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 				
 
-db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
+db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
 dd = db.cursor(buffered = True)
 
 try:
@@ -133,7 +128,6 @@ try:
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
-				print 'inserted lobbyist'
 				insert_lobbyist_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			elif form == "F604" and entity_cd == "LBY" and sender_id[:1] == 'E':
 				filer_naml = row[7]
@@ -152,7 +146,6 @@ try:
 				insert_lobbyist_direct_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			#extra attention needed for this one
 			elif form == "F604" and entity_cd == "LBY" and sender_id.isdigit():
-				print 'case 4'
 				filer_naml = row[7]
 				filer_namf = row[8]
 				filer_id = row[5]
