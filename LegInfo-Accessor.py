@@ -16,6 +16,9 @@ Lobbyist = [[0 for x in xrange(5)] for x in xrange(10000)]
 def format_date(str):
 	temp = ''
 	str = str.split('/');
+	for x in range(0,3):
+		if len(str[x]) == 1:
+			str[x] = "0" + str[x]
 	temp = '-'.join([str[2], str[1], str[0]])
 	return temp
 	
@@ -28,14 +31,12 @@ def getPerson(cursor, filer_naml, filer_namf, val):
 	return pid
 	
 def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
-	print 'in'
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_lobbyist_employer, (filer_naml, filer_id, coalition))	
 
-def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
-	
+def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):	
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
@@ -81,7 +82,7 @@ def find_lobbyist_employment(cursor, index):
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
-		print 'lobbyistEmployment'
+		print 'lobbyistDirectEmployment'
 		cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 				
 
@@ -106,11 +107,8 @@ try:
 				filer_naml = row[7]
 				filer_id = row[5]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				print "naml = {0}, id = {1}, date = {2}, beg = {3}, end = {4}\n".format(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
