@@ -19,7 +19,7 @@ def format_date(str):
 	for x in range(0,3):
 		if len(str[x]) == 1:
 			str[x] = "0" + str[x]
-	temp = '-'.join([str[2], str[1], str[0]])
+	temp = '-'.join([str[2], str[0], str[1]])
 	return temp
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
