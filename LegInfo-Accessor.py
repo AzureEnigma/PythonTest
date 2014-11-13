@@ -75,7 +75,7 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 		
 def find_lobbyist_employment(cursor, index):
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(sender_id)s"
-	cursor.execute(select_stmt, {'sender_id'::Lobbyist[index][1]})
+	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
 		cursor.execute(query_insert_lobbyist_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
