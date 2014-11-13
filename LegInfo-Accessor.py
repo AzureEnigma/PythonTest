@@ -16,16 +16,7 @@ Lobbyist = [[0 for x in xrange(5)] for x in xrange(10000)]
 def format_date(str):
 	temp = ''
 	str = str.split('/');
-	#for x in range(0,3):
-	#	print str[x]
-	#	if str[x][:1] == '0':
-	#		str[x] = str[x][1:]
-	#		print str[x]
 	temp = '-'.join([str[2], str[1], str[0]])
-	print temp
-	#mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
-	#print mydate.strftime("%Y-%d-%m")
-	#return mydate.strftime("%Y-%d-%m")
 	return temp
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
@@ -41,10 +32,6 @@ def insert_lobbyist_employer(cursor, filer_naml, filer_id, coalition):
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(filer_id)s"
 	cursor.execute(select_stmt, {'filer_id':filer_id})
 	if(cursor.rowcount == 0):
-		print query_insert_lobbyist_employer
-		print filer_naml
-		print filer_id
-		print coalition
 		cursor.execute(query_insert_lobbyist_employer, (filer_naml, filer_id, coalition))	
 
 def insert_lobbying_firm(cursor, filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr):
@@ -68,7 +55,6 @@ def insert_lobbyist_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_e
 	select_stmt = "SELECT sender_id, rpt_date, ls_beg_yr FROM LobbyistEmployment WHERE sender_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':sender_id})
 	if(cursor.rowcount == 0):
-		print 'lol'
 		cursor.execute(query_insert_lobbyist_employment, (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def insert_lobbyist_direct_employment(cursor, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr):
@@ -84,6 +70,8 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 		cursor.execute(query_insert_lobbyist_contracts, (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr))
 		
 def find_lobbyist_employment(cursor, index):
+	print Lobbyist[index][0]
+	print Lobbyist[index][1]
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
@@ -111,9 +99,6 @@ try:
 			entity_cd = row[6]
 			val = val + 1
 			print val
-			print form
-			print entity_cd
-			print sender_id
 			if form == "F601" and entity_cd == "FRM" and sender_id[:1] == 'F': 
 				filer_naml = row[7]
 				filer_id = row[5]
@@ -133,14 +118,10 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
-				print 'lol'
 				pid = getPerson(dd, filer_naml, filer_namf, val)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
@@ -153,19 +134,14 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
-				print 'hi'
 				pid = getPerson(dd, filer_naml, filer_namf, val)
 				print "filer_id = {0}\n".format(filer_id)
 				print "sender_id = {0}, rpt_date = {1}, ls_beg_yr = {2}, ls_end_yr = {3}\n".format(sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 				insert_lobbyist(dd, pid, filer_id)
-				print 'inserted lobbyist'
 				insert_lobbyist_direct_employment(dd, pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr)
 			#extra attention needed for this one
 			elif form == "F604" and entity_cd == "LBY" and sender_id.isdigit():
@@ -206,7 +182,6 @@ try:
 				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
-				print 'hi'
 				coalition = (filer_id[:1] == 'C') * 1
 				print "filer_naml = {0}, filer_id = {1}, coalition = {2}\n".format(filer_naml, filer_id, coalition)
 				insert_lobbyist_employer(dd, filer_naml, filer_id, coalition)
@@ -235,10 +210,8 @@ try:
 					insert_lobbyist_employer(dd, filer_naml, filer_id,  coalition)
 			elif form == "F606":
 				print 'case 7'
-				print 'Dont worry about now'
 			elif form == "F607" and entity_cd == "LEM":
 				print 'case 8'
-				print 'Dont worry about now'
 			else:
 				print 'Does not match any case!'
 				
