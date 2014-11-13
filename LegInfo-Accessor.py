@@ -11,7 +11,7 @@ query_insert_lobbyist_employment = "INSERT INTO LobbyistEmployment (pid, sender_
 query_insert_lobbyist_direct_employment = "INSERT INTO LobbyistDirectEmployment (pid, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 query_insert_lobbyist_contracts = "INSERT INTO LobbyingContracts (filer_id, sender_id, rpt_date, ls_beg_yr, ls_end_yr) VALUES(%s, %s, %s, %s, %s);"
 
-Lobbyist = [[0 for x in xrange(5)] for x in xrange(2000)]
+Lobbyist = [[0 for x in xrange(5)] for x in xrange(10000)]
 
 def format_date(str):
 	check = str.split('/');
@@ -156,6 +156,7 @@ try:
 				print "filer_id = {0}\n".format(filer_id)
 				pid = getPerson(dd, filer_naml, filer_namf, val)
 				insert_lobbyist(dd, pid, filer_id)
+				print "inserting Lobbyist into index {0}\n".format(index)
 				Lobbyist[index][0] = pid
 				Lobbyist[index][1] = sender_id
 				Lobbyist[index][2] = rpt_date
