@@ -15,8 +15,6 @@ Lobbyist = [[]]
 
 def format_date(str):
 	check = str.split('/');
-	for len(check):
-		
 	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
 	return mydate.strftime("%Y-%d-%m")
 	
