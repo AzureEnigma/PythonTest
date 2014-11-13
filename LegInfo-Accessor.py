@@ -72,13 +72,16 @@ def insert_lobbyist_contracts(cursor, filer_id, sender_id, rpt_date, ls_beg_yr, 
 def find_lobbyist_employment(cursor, index):
 	print Lobbyist[index][0]
 	print Lobbyist[index][1]
+	print Lobbyist[index][2]
 	select_stmt = "SELECT filer_id FROM LobbyingFirm WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
+		print 'lobbyistEmployment'
 		cursor.execute(query_insert_lobbyist_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 	select_stmt = "SELECT filer_id FROM LobbyistEmployer WHERE filer_id = %(sender_id)s"
 	cursor.execute(select_stmt, {'sender_id':Lobbyist[index][1]})
 	if(cursor.rowcount > 0):
+		print 'lobbyistEmployment'
 		cursor.execute(query_insert_lobbyist_direct_employment, (Lobbyist[index][0], Lobbyist[index][1], Lobbyist[index][2], Lobbyist[index][3], Lobbyist[index][4]))
 				
 
@@ -151,11 +154,8 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				firm_name = row[61]
@@ -175,11 +175,8 @@ try:
 				filer_id = row[5]
 				sender_id = row[4]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				coalition = (filer_id[:1] == 'C') * 1
@@ -195,11 +192,8 @@ try:
 				filer_namf = row[8]
 				filer_id = row[5]
 				rpt_date = row[12]
-				print rpt_date
 				rpt_date = rpt_date.split(' ')[0]
-				print rpt_date
 				rpt_date = format_date(rpt_date)
-				print rpt_date
 				ls_beg_yr = row[13]
 				ls_end_yr = row[14]
 				coalition = (filer_id[:1] == 'C') * 1
