@@ -21,7 +21,7 @@ def format_date(str):
 	#	if str[x][:1] == '0':
 	#		str[x] = str[x][1:]
 	#		print str[x]
-	temp = '/'.join([str[2], str[1], str[0]])
+	temp = '-'.join([str[2], str[1], str[0]])
 	print temp
 	#mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
 	#print mydate.strftime("%Y-%d-%m")
