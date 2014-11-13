@@ -14,8 +14,17 @@ query_insert_lobbyist_contracts = "INSERT INTO LobbyingContracts (filer_id, send
 Lobbyist = [[0 for x in xrange(5)] for x in xrange(10000)]
 
 def format_date(str):
-	check = str.split('/');
-	mydate = datetime.datetime.strptime(str, "%m/%d/%Y").date()
+	temp = ''
+	str = str.split('/');
+	for x in range(0,2):
+		print str[x]
+		if str[x][:1] == '0':
+			str[x] = str[x][1:]
+			print str[x]
+		temp = temp + str[x]
+		print temp
+	print temp
+	mydate = datetime.datetime.strptime(temp, "%m/%d/%Y").date()
 	return mydate.strftime("%Y-%d-%m")
 	
 def getPerson(cursor, filer_naml, filer_namf, val):
@@ -202,10 +211,10 @@ try:
 			else:
 				print 'Does not match any case!'
 				
-		while index:
-			index -= 1
-			print "checking lobbyist {0}\n".format(index)
-			find_lobbyist_employment(dd, index)
+		#while index:
+		#	index -= 1
+		#	print "checking lobbyist {0}\n".format(index)
+		#	find_lobbyist_employment(dd, index)
 			
 		db.commit()		
 except:
