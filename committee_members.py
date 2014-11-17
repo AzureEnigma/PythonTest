@@ -18,6 +18,7 @@ dd = db.cursor(buffered = True)
 try:
 	select_stmt = ("SELECT * FROM Committee")
 	dd.execute(select_stmt)
+	temp = ""
 	while(temp != "None"):
 		temp = dd.fetchone()
 		print temp;
