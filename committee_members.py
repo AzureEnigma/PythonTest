@@ -23,6 +23,7 @@ try:
 	dd.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = dd.fetchone()
+		print temp
 		id = find_committee(temp['committee'])
 		if id is not "invalid":
 			str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
