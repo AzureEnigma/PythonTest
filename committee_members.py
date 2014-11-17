@@ -18,8 +18,8 @@ dd = db.cursor(buffered = True)
 try:
 	select_stmt = ("SELECT * FROM Committee")
 	dd.execute(select_stmt)
-	print dd.fetchone()
-	print dd.fetchone()
+	while(dd.rowcount > 0):
+		print dd.fetchone()
 
 except:
 	db.rollback()
