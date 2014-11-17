@@ -10,9 +10,9 @@ url = urlopen('http://openstates.org/api/v1/committees/?apikey=d1a1fe2c7d5344328
 result = json.loads(url)
 
 def find_committee(temp):
-	for i in range(len(url)):
-		if temp in url[i]['committee']:
-			return url[i]['id']
+	for i in range(len(result)):
+		if temp in result[i]['committee']:
+			return result[i]['id']
 	return "invalid"
 
 db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
@@ -23,15 +23,15 @@ try:
 	dd.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = dd.fetchone()
-		print temp
-		id = find_committee(temp['committee'])
+		print temp[2]
+		id = find_committee(temp[2])
+		print "Committee {0}".format(temp[2])
 		if id is not "invalid":
 			str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
-			url2 = urlopen(str)
+			url2 = urlopen(str).read()
 			committee = json.loads(url2)
-			for u in range(len(committee)):
-				for m in range(len(committee[u]["members"])):
-					print committee[u]["members"]["name"]
+			for m in range(len(committee['members'])):
+				print committee['members'][m]['name']
 
 except:
 	db.rollback()
