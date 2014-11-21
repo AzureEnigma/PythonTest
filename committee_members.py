@@ -68,7 +68,9 @@ try:
 			url2 = urlopen(str).read()
 			print str
 			committee = json.loads(url2)
-			for m in range(len(committee['members'])):
+			print len(committee['members'])
+			for m in range(0, len(committee['members'])):
+				print m
 				print 'in'
 				name = committee['members'][m]['name'].split(' ')
 				last = name[1]
