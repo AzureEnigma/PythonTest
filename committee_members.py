@@ -14,7 +14,9 @@ result = json.loads(url)
 def find_committee(temp):
 	for i in range(len(result)):
 		if temp in result[i]['committee']:
-			return result[i]['id'][0]
+			temp = result[i]['id']
+			print temp
+			return temp
 	return "invalid"
 
 def getPerson(cursor, filer_naml, filer_namf):
