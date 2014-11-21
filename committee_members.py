@@ -51,12 +51,13 @@ def insert_serveson(cursor, pid, year, district, house, cid):
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
 dd = db.cursor(buffered = True)
+de = db.cursor(buffered = True)
 
 try:
 	select_stmt = ("SELECT * FROM Committee")
-	dd.execute(select_stmt)
+	de.execute(select_stmt)
 	for x in xrange(0,30):
-		temp = dd.fetchone()
+		temp = de.fetchone()
 			print temp[2]
 		if temp:
 			id = find_committee(temp[2])
