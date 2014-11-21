@@ -58,7 +58,7 @@ try:
 	de.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = de.fetchone()
-			print temp[2]
+		print temp[2]
 		if temp:
 			id = find_committee(temp[2])
 			cid = temp[0]
@@ -81,7 +81,8 @@ try:
 					if pid != 0:
 						year = 2013
 						district = find_district(dd, pid, year, house)
-						insert_serveson(dd, pid, year, district, house, cid)
+						if(district != 999):
+							insert_serveson(dd, pid, year, district, house, cid)
 
 except:
 	db.rollback()
