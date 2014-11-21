@@ -58,7 +58,7 @@ try:
 	de.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = de.fetchone()
-		print temp[2]
+		print "committee is {0}".format(temp[2])
 		if temp:
 			id = find_committee(temp[2])
 			cid = temp[0]
