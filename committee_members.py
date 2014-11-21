@@ -33,7 +33,8 @@ def find_district(cursor, pid, year, house):
 	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND house = %(house)s AND year = %(year)s;"
 	cursor.execute(select_stmt, {'pid':pid, 'house':house, 'year':year})
 	if(cursor.rowcount > 0):
-		return cursor.fetchone()
+		temp = cursor.fetchone()
+		return temp[0]
 	return 999
 	
 def insert_serveson(cursor, pid, year, district, house, cid):
