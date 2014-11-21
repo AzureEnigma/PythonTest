@@ -58,6 +58,7 @@ try:
 		house = temp[1]
 		print "Committee {0}".format(temp[2])
 		if id is not "invalid":
+			print 'valid'
 			str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
 			url2 = urlopen(str).read()
 			committee = json.loads(url2)
