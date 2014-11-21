@@ -69,7 +69,7 @@ try:
 			print str
 			committee = json.loads(url2)
 			print len(committee['members'])
-			for m in range(0, len(committee['members'])):
+			for m in range(0, len(committee['members']) - 1):
 				print m
 				print 'in'
 				name = committee['members'][m]['name'].split(' ')
