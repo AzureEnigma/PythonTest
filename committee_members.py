@@ -19,6 +19,8 @@ def find_committee(temp):
 
 def getPerson(cursor, filer_naml, filer_namf):
 	pid = 0
+	print filer_naml
+	print filer_namf
 	select_pid = "SELECT pid FROM Person WHERE last = %(filer_naml)s AND first = %(filer_namf)s ORDER BY Person.pid;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	if cursor.rowcount > 0:
