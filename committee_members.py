@@ -62,8 +62,10 @@ try:
 			url2 = urlopen(str).read()
 			committee = json.loads(url2)
 			for m in range(len(committee['members'])):
-				last = committee['members'][m]['name'][0]
-				first = committee['members'][m]['name'][1]
+				name = committee['members'][m]['name'].split(' ')
+				last = name[0]
+				print last
+				first = name[1]
 				pid = getPerson(dd, last, first)
 				year = 2013
 				district = find_district(dd, pid, year, house)
