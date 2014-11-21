@@ -11,7 +11,7 @@ query_insert_serveson = "INSERT INTO servesOn (pid, year, district, house, cid) 
 url = urlopen('http://openstates.org/api/v1/committees/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce&state=ca').read()
 result = json.loads(url)
 
-for m in (0, len(result))
+for m in range(len(result)):
 	print result[m]['committee']
 
 def find_committee(temp):
@@ -71,6 +71,7 @@ try:
 				print 'valid'
 				str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
 				url2 = urlopen(str).read()
+				print url2
 				print str
 				committee = json.loads(url2)
 				print len(committee['members'])
