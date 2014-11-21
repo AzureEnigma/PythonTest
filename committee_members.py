@@ -67,9 +67,10 @@ try:
 				print last
 				first = name[0]
 				pid = getPerson(dd, last, first)
-				year = 2013
-				district = find_district(dd, pid, year, house)
-				insert_serveson(dd, pid, year, district, house, cid)
+				if pid != 0:
+					year = 2013
+					district = find_district(dd, pid, year, house)
+					insert_serveson(dd, pid, year, district, house, cid)
 
 except:
 	db.rollback()
