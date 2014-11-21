@@ -35,7 +35,7 @@ def find_district(cursor, pid, year, house):
 def insert_serveson(cursor, pid, year, district, house, cid):
 	select_stmt = "SELECT * FROM servesOn where pid = %(pid)s AND house = %(house)s AND year = %(year)s AND cid = %(cid)s AND district = %(district)s;"
 	cursor.execute(select_stmt, {'pid':pid, 'house':house, 'year':year, 'cid':cid, 'district':district})
-	if(rowcount == 0):
+	if(cursor.rowcount == 0):
 		cursor.execute(query_insert_serveson, (pid, year, district, house, cid))
 
 db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
