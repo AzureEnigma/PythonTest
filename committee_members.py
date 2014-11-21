@@ -57,8 +57,8 @@ try:
 	dd.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = dd.fetchone()
-		if temp:
 			print temp[2]
+		if temp:
 			id = find_committee(temp[2])
 			cid = temp[0]
 			house = temp[1]
