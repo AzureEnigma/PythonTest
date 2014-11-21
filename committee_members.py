@@ -57,29 +57,30 @@ try:
 	dd.execute(select_stmt)
 	for x in xrange(0,30):
 		temp = dd.fetchone()
-		print temp[2]
-		id = find_committee(temp[2])
-		cid = temp[0]
-		house = temp[1]
-		print "Committee {0}".format(temp[2])
-		if id is not "invalid":
-			print 'valid'
-			str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
-			url2 = urlopen(str).read()
-			print str
-			committee = json.loads(url2)
-			print len(committee['members'])
-			for m in range(0, len(committee['members']) - 1):
-				print m
-				print 'in'
-				name = committee['members'][m]['name'].split(' ')
-				last = name[1]
-				first = name[0]
-				pid = getPerson(dd, last, first)
-				if pid != 0:
-					year = 2013
-					district = find_district(dd, pid, year, house)
-					insert_serveson(dd, pid, year, district, house, cid)
+		if temp:
+			print temp[2]
+			id = find_committee(temp[2])
+			cid = temp[0]
+			house = temp[1]
+			print "Committee {0}".format(temp[2])
+			if id is not "invalid":
+				print 'valid'
+				str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
+				url2 = urlopen(str).read()
+				print str
+				committee = json.loads(url2)
+				print len(committee['members'])
+				for m in range(0, len(committee['members']) ):
+					print m
+					print 'in'
+					name = committee['members'][m]['name'].split(' ')
+					last = name[1]
+					first = name[0]
+					pid = getPerson(dd, last, first)
+					if pid != 0:
+						year = 2013
+						district = find_district(dd, pid, year, house)
+						insert_serveson(dd, pid, year, district, house, cid)
 
 except:
 	db.rollback()
