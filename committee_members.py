@@ -16,8 +16,6 @@ for m in range(len(result)):
 
 def find_committee(temp):
 	for i in range(0, len(result)):
-                print result[i]['committee']
-                print temp
 		if temp in result[i]['committee']:
                         print i
 			temp = result[i]['id']
@@ -66,6 +64,7 @@ try:
 		temp = de.fetchone()
 		print "committee is {0}".format(temp[2])
 		if temp:
+                        print temp[2]
 			id = find_committee(temp[2].strip(' \t\n\r'))
 			cid = temp[0]
 			house = temp[1]
