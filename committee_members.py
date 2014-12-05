@@ -34,8 +34,8 @@ def getPerson(cursor, filer_naml, filer_namf):
 	return pid
 	
 def find_district(cursor, pid, year, house):
-	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND house = %(house)s AND year = %(year)s;"
-	cursor.execute(select_stmt, {'pid':pid, 'house':house, 'year':year})
+	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND year = %(year)s;"
+	cursor.execute(select_stmt, {'pid':pid, 'year':year})
 	if(cursor.rowcount > 0):
 		temp = cursor.fetchone()
 		return temp[0]
@@ -53,7 +53,7 @@ def insert_serveson(cursor, pid, year, district, house, cid):
 		#print cid
 		cursor.execute(query_insert_serveson, (pid, year, district, house, cid))
 
-db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
+db = mysql.connector.connect(user = 'root', db = 'DDDB', password = '')
 dd = db.cursor(buffered = True)
 de = db.cursor(buffered = True)
 
@@ -87,7 +87,7 @@ try:
 					if pid != 0:
 						year = 2013
                                                 print pid
-						district = find_district(dd, pid, year, house)
+						district = find_district(dd, pid, year)
 						if(district != 999):
                                                         insert_serveson(dd, pid, year, district, house, cid)
 	
