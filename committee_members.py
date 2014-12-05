@@ -66,7 +66,7 @@ try:
 		temp = de.fetchone()
 		print "committee is {0}".format(temp[2])
 		if temp:
-			id = find_committee(temp[2].strip())
+			id = find_committee(temp[2].strip(' \t\n\r'))
 			cid = temp[0]
 			house = temp[1]
 			print house
