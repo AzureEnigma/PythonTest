@@ -24,8 +24,8 @@ def find_committee(temp):
 
 def getPerson(cursor, filer_naml, filer_namf):
 	pid = 0
-	print filer_naml
-	print filer_namf
+	#print filer_naml
+	#print filer_namf
 	select_pid = "SELECT pid FROM Person WHERE last LIKE %(filer_naml)s AND first = %(filer_namf)s ORDER BY Person.pid;"
 	cursor.execute(select_pid, {'filer_naml':filer_naml, 'filer_namf':filer_namf})
 	if cursor.rowcount > 0:
@@ -66,6 +66,7 @@ try:
 			id = find_committee(temp[2])
 			cid = temp[0]
 			house = temp[1]
+			print house
 			print "Committee {0}".format(id)
 			if id is not "invalid":
 				print 'valid'
@@ -85,6 +86,7 @@ try:
 					if pid != 0:
 						year = 2013
 						district = find_district(dd, pid, year, house)
+						print district
 						if(district != 999):
 							insert_serveson(dd, pid, year, district, house, cid)
 	
