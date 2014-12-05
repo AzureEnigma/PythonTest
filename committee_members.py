@@ -86,9 +86,7 @@ try:
 					if pid != 0:
 						year = 2013
 						district = find_district(dd, pid, year, house)
-						print district
-						if(district != 999):
-							insert_serveson(dd, pid, year, district, house, cid)
+						insert_serveson(dd, pid, year, district, house, cid)
 	
 	db.commit()
 
