@@ -44,12 +44,12 @@ def insert_serveson(cursor, pid, year, district, house, cid):
 	select_stmt = "SELECT * FROM servesOn where pid = %(pid)s AND house = %(house)s AND year = %(year)s AND cid = %(cid)s AND district = %(district)s;"
 	cursor.execute(select_stmt, {'pid':pid, 'house':house, 'year':year, 'cid':cid, 'district':district})
 	if(cursor.rowcount == 0):
-		print 'insert'
-		print pid
-		print year
-		print district
-		print house
-		print cid
+		#print 'insert'
+		#print pid
+		#print year
+		#print district
+		#print house
+		#print cid
 		cursor.execute(query_insert_serveson, (pid, year, district, house, cid))
 
 db = mysql.connector.connect(user = 'root', db = 'tester', password = '')
@@ -71,13 +71,13 @@ try:
 				print 'valid'
 				str = 'http://openstates.org/api/v1/committees/' + id + '/?apikey=d1a1fe2c7d53443284d0ea62d8ce7dce'
 				url2 = urlopen(str).read()
-				print url2
-				print str
+				#print url2
+				#print str
 				committee = json.loads(url2)
-				print len(committee['members'])
+				#print len(committee['members'])
 				for m in range(0, len(committee['members']) ):
-					print m
-					print 'in'
+					#print m
+					#print 'in'
 					name = committee['members'][m]['name'].split(' ')
 					last = name[1]
 					first = name[0]
