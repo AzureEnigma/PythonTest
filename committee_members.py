@@ -33,9 +33,9 @@ def getPerson(cursor, filer_naml, filer_namf):
 		pid = cursor.fetchone()[0]
 	return pid
 	
-def find_district(cursor, pid, year):
-	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND year = %(year)s;"
-	cursor.execute(select_stmt, {'pid':pid, 'year':year})
+def find_district(cursor, pid, year, house):
+	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND house = %(house)s AND year = %(year)s;"
+	cursor.execute(select_stmt, {'pid':pid, 'house':house, 'year':year})
 	if(cursor.rowcount > 0):
 		temp = cursor.fetchone()
 		return temp[0]
@@ -87,7 +87,7 @@ try:
 					if pid != 0:
 						year = 2013
                                                 print pid
-						district = find_district(dd, pid, year)
+						district = find_district(dd, pid, year, house)
 						if(district != 999):
                                                         insert_serveson(dd, pid, year, district, house, cid)
 	
