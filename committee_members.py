@@ -85,8 +85,10 @@ try:
 					pid = getPerson(dd, last, first)
 					if pid != 0:
 						year = 2013
+                                                print pid
 						district = find_district(dd, pid, year, house)
-						insert_serveson(dd, pid, year, district, house, cid)
+						if(district != 999):
+                                                        insert_serveson(dd, pid, year, district, house, cid)
 	
 	db.commit()
 
