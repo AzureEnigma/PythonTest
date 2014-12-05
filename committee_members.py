@@ -67,6 +67,7 @@ try:
 			cid = temp[0]
 			house = temp[1]
 			print house
+			print id
 			print "Committee {0}".format(id)
 			if id is not "invalid":
 				print 'valid'
@@ -77,8 +78,6 @@ try:
 				committee = json.loads(url2)
 				#print len(committee['members'])
 				for m in range(0, len(committee['members']) ):
-					#print m
-					#print 'in'
 					name = committee['members'][m]['name'].split(' ')
 					last = name[1]
 					first = name[0]
