@@ -33,7 +33,7 @@ def getPerson(cursor, filer_naml, filer_namf):
 		pid = cursor.fetchone()[0]
 	return pid
 	
-def find_district(cursor, pid, year, house):
+def find_district(cursor, pid, year):
 	select_stmt = "SELECT district FROM Term where pid = %(pid)s AND year = %(year)s;"
 	cursor.execute(select_stmt, {'pid':pid, 'year':year})
 	if(cursor.rowcount > 0):
