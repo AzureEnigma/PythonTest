@@ -16,9 +16,10 @@ for m in range(len(result)):
 
 def find_committee(temp):
 	for i in range(len(result)):
-		if result[i]['committee'].find(temp):
+                print result[m]['committee']
+                print temp
+		if temp in result[i]['committee']:
                         print i
-                        print result[m]['committee']
 			temp = result[i]['id']
 			print temp
 			return temp
